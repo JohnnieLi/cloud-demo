@@ -39,7 +39,7 @@ module.exports = function () {
             let _id = req.params._id || req.body._id;
             Message.findOne({_id: _id}, function (err, result) {
                 if(err){
-                    return res.json({error: err});
+                    return res.status(404).json({error: 404, message: "can not found"});
                 }else{
                     return res.json({result: result});
                 }
