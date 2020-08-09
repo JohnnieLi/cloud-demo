@@ -8,8 +8,8 @@ module.exports = function () {
     
     messageCtl.list = function (req, res) {
         let page = req.query.page;
-        let limit = req.query.size;
-        if (page && limit) {
+        let limit = req.query.size || 10;
+        if (page) {
             var options = {
                 page: page,
                 lean: true,

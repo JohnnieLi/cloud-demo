@@ -1,5 +1,4 @@
-FROM node:8
-
+FROM node:12
 
 # Create app directory path is inside the image
 WORKDIR /usr/src/app
@@ -13,9 +12,9 @@ RUN npm install
 # RUN npm install --only=production
 
 # Bundle app source
-COPY . /usr/src/app
+COPY . .
 
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]
 

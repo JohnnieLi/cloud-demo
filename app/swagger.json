@@ -60,7 +60,7 @@
         "tags": [
           "Message"
         ],
-        "summary": "list all messages",
+        "summary": "List all messages",
         "description": "",
         "operationId": "updatePet",
         "consumes": [
@@ -74,7 +74,7 @@
             "in": "query",
             "name": "page",
             "type": "integer",
-            "description": "The number of current page."
+            "description": "The number of current page. Start from 1 if provided"
           },
           {
             "in": "query",
@@ -85,6 +85,9 @@
         ],
         "responses": {
           "200": {
+            "description": "return array of message if not provided the page number"
+          },
+          "200 - pagination": {
             "description": "return pagination object"
           }
         }
@@ -128,7 +131,7 @@
         "tags": [
           "Message"
         ],
-        "summary": "Update an existing pet",
+        "summary": "Update an existing message",
         "description": "",
         "consumes": [
           "application/json"
