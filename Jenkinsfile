@@ -1,8 +1,6 @@
 pipeline {
-  agent { docker { image 'node:latest' } }
-  environment {
-        HOME = '.'
-    }
+  agent any
+  tools {nodejs "node"}
   stages {
     stage('Build') {
       steps {
