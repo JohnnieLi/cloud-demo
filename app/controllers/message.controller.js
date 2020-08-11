@@ -77,12 +77,12 @@ module.exports = function () {
         if(!messageItem.body){
             return res.status(400).json({error: 400, message: 'missing body params'});
         }
-        let isPalindrome = isPalindrome(messageItem.body);
+        let isPali = isPalindrome(messageItem.body);
         Message.updateOne({'_id': _id}, {
             $set: {
                 'body': messageItem.body,
                 'status': messageItem.status || "Active",
-                'isPalindrome': isPalindrome
+                'isPalindrome': isPali
             }
         }, function (err) {
             if (err) {
