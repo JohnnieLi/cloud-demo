@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS": {"availableFonts":["TeX"],"scale": 150}});</script>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="cloud-audition-project">Cloud Audition Project</h1>
+<h5 id="this-is-a-simple-rest-api-nodejs">This is a simple REST API in NodeJs</h5>
+<p>service around message resource, which can list, create, retrieve, update and delete a message.</p>
+<h5 id="deployed-in-aws-and-using-kubernetes-jenkin-involved-cli-is-available-as-well">Deployed in AWS and using Kubernetes, Jenkin involved. CLI is available as well</h5>
+<h5 id="author-jiangqi-li-jiangqilioutlookcom">Author: Jiangqi Li  <a href="mailto:jiangqi.li@outlook.com">jiangqi.li@outlook.com</a></h5>
+<h5 id="repository-httpsgithubcomjohnnielicloud-demo">Repository: <a href="https://github.com/JohnnieLi/cloud-demo" target="_new">https://github.com/JohnnieLi/cloud-demo</a></h5>
+<h5 id="live-api-link-httpsapijohnnielicomv1messages">Live API Link: <a href="https://api.johnnieli.com/v1/messages" target="_new">https://api.johnnieli.com/v1/messages</a></h5>
+<h5 id="live-api-doc-httpsapijohnnielicomapi-docs">Live API Doc: <a href="https://api.johnnieli.com/api-docs" target="_new">https://api.johnnieli.com/api-docs</a></h5>
+<h5>Live website Readme: <a href="https://api.johnnieli.com/readme/" target="_new">https://api.johnnieli.com/readme/</a></h5>
+<hr>
+<h2 id="api-code-structure-sample-from-srcapp">API Code Structure sample from <strong>src/app</strong></h2>
+<pre class="hljs"><code><div>app
+├── @core
+|   |──utils
+|
+├── api.v1 (defined API routes here)
+|
+├── controllers
+|   ├── message.controller.js
+|   └── ...
+|
+├── _models
+|   ├── Message.js
+|   └── ...
+├── ...
+|
+└── app.js
+</div></code></pre>
+<h5 id="the-api-code-structure-has-controller-model-modules-and-connect-to-mongodb-database-by-mongoose">The API Code structure has controller, model modules and connect to mongoDb database by mongoose.</h5>
+<p><strong>@Core module</strong> will hold any shared helpers, such as the stringHelper which has isPalindrome().</p>
+<hr>
+<h2 id="build-test-run-and-deployment">Build, test, run and deployment</h2>
+<ol>
+<li>Clone from the repository <a href="https://github.com/JohnnieLi/cloud-demo" target="_new">https://github.com/JohnnieLi/cloud-demo</a>,</li>
+<li>go to dictory /cloud-demo</li>
+<li>Install packages</li>
+</ol>
+<pre class="hljs"><code><div>npm install
+</div></code></pre>
+<ol start="4">
+<li>run test: Tips: testing is using MongoDB in memory</li>
+</ol>
+<pre class="hljs"><code><div>npm run test
+</div></code></pre>
+<ol start="5">
+<li>Run locally (add .env file which has <code>DB_DEV=VALUE</code> to hold the live DB credential)</li>
+</ol>
+<pre class="hljs"><code><div>npm start
+</div></code></pre>
+<ol start="6">
+<li><code>Run locally alternatively</code> Since the security considerations, author doesn't push the .env file to public github repository, if missing .env file, please run locally by docker</li>
+</ol>
+<pre class="hljs"><code><div>docker-compose up
+</div></code></pre>
+<p>When run locally. you can now access the service by http://localhost:8080
+the api docs will available from http://localhost:8080/api-docs</p>
+<ol start="7">
+<li>Deployment:
+Go to your server and follow the above steps, then run in production mode</li>
+</ol>
+<pre class="hljs"><code><div>npm run prod
+</div></code></pre>
+<p>or</p>
+<pre class="hljs"><code><div>docker-compose up
+</div></code></pre>
+<p>Tips: Author is using Kubernetes and AWS services to deploy this API service as https://api.johnnieli.com, more details will be shown later.</p>
+<hr>
+<h2 id="tesing-capture">Tesing Capture</h2>
+<ol>
+<li>Using Chai test framework to test the message api</li>
+<li>Using MongoMemoryServer as testing db env</li>
+</ol>
+<pre class="hljs"><code><div>npm run test
+</div></code></pre>
+<p><img src="/img/testing-example.JPG" alt="image info"></p>
+<hr>
+<h2 id="api-docs">API Docs</h2>
+<p>More details please check <a href="https://api.johnnieli.com/api-docs" target="_new">https://api.johnnieli.com/api-docs</a></p>
+<p>HOST:    <a href="https://api.johnnieli.com" target="_new">https://api.johnnieli.com</a></p>
+<p>Endpoints:</p>
+<pre class="hljs"><code><div> POST    /v1/messages
+ GET     /v1/messages/:id
+ PUT     /v1/messages/:id
+ DELETE  /v1/messages/:id
+ GET     /v1/messages
+</div></code></pre>
+<p>List all messages with pagination</p>
+<pre class="hljs"><code><div>curl -X GET https://api.johnnieli.com/v1/messages?page=1&amp;size=10
+</div></code></pre>
+<p>List all messages without pagination</p>
+<pre class="hljs"><code><div>curl -X GET https://api.johnnieli.com/v1/messages
+</div></code></pre>
+<p>Retrieve one message by id</p>
+<pre class="hljs"><code><div>curl -X GET https://api.johnnieli.com/v1/messages/5f2dd9ce100a844fcc9010ad
+</div></code></pre>
+<p>Create a message</p>
+<pre class="hljs"><code><div>curl -X POST https://api.johnnieli.com/v1/messages -d body=&quot;My Test Message (created for API docs)&quot;
+</div></code></pre>
+<p>Update a message</p>
+<pre class="hljs"><code><div>curl -X PUT https://api.johnnieli.com/v1/messages/5f32c4e0e4e2c7487add7b77 -d body=&quot;My Test Message updated (created for API docs)&quot;
+</div></code></pre>
+<p>Delete a message</p>
+<pre class="hljs"><code><div>curl -X DELETE https://api.johnnieli.com/v1/messages/5f32c4e0e4e2c7487add7b77
+</div></code></pre>
+<hr>
+<h2 id="aws-kubernetes-deployment">AWS, kubernetes Deployment</h2>
+<ol>
+<li>Launch a EC2 instance to install the <code><a href="https://kubernetes.io/docs/setup/production-environment/tools/kops/" target="_new">kops</a></code></li>
+<li>Create IAM user for <code>kops</code> usage</li>
+<li>Register dns domain on Route 53</li>
+<li>Create a S3 for <code>kops</code></li>
+<li>Build a docker image and push it to docker hub as public image: <code>jiangqi319/cloud-demo</code></li>
+<li>Using kops to create a kubenetes cluster in aws (set dns-zone as registered one)</li>
+<li>Using kubectl to create a pod and service based on the yml file (using docker image <code>jiangqi319/cloud-demo</code> and service kind is: loadbalancer)</li>
+<li>Create a public certificate for <code>api.johnnieli.com</code> using AWS Certificate Manager</li>
+<li>Create a CloudFront Distribution with loadbalancer and apply the domain <code>api.johnnieli.com</code> in with AWS Certificate, disabled the http cache on purpose.</li>
+<li><a href="https://api.johnnieli.com/v1/messages" target="_new">https://api.johnnieli.com/v1/messages</a> are available now.</li>
+</ol>
+<hr>
+<h2 id="ci-jenkins">CI: Jenkins</h2>
+<ol>
+<li>Deployment a Jenkin service and install github related plugins</li>
+<li>create a <code>Jenkinsfile</code> on the project and defined the stages</li>
+</ol>
+<pre class="hljs"><code><div>pipeline {
+  agent any
+  tools {nodejs &quot;node&quot;}
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building..'
+        sh 'npm install'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        echo 'Testing..'
+        sh 'npm run test'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying 1/2....'
+      }
+    }
+
+  }
+} 
+</div></code></pre>
+<ol start="3">
+<li>This demo is testing only, so the author don't put any deployment stage here.</li>
+<li>The Jenkins will be triggered and run test on jenkins enviornment workspace.</li>
+</ol>
+<p><img src="/img/jenkins-example.JPG" alt="image info"></p>
+<hr>
+<h2 id="cli-command-interface">CLI: Command Interface</h2>
+<ol>
+<li>Demo purpose： name the bin code as <code>johnnieliMessage</code></li>
+<li>locally, run</li>
+</ol>
+<pre class="hljs"><code><div>npm link
+</div></code></pre>
+<ol start="3">
+<li>then can use <code>johnnieliMessage</code> command, type <code>johnnieliMessage --help</code> see details</li>
+</ol>
+<pre class="hljs"><code><div>johnnieliMessage [command] &lt;options&gt;
+  ls ................ show all messages
+  ps ........... show one message by id
+  create.............. create a new message 
+  update ............ update the existing message by id
+  rm ............ delete a message by id
+  help ............... show help menu for a command    
+</div></code></pre>
+<ol start="4">
+<li><code>johnnieliMessage create --help</code> also available to check</li>
+</ol>
+<pre class="hljs"><code><div>  johnnieliMessage create &lt;options&gt;
+  --body, -b ....... add the message content as the body.
+</div></code></pre>
+<ol start="5">
+<li><code>johnnieliMessage ls -p 1 -s 5</code> will show as below:</li>
+</ol>
+<p><img src="/img/cli-ls-example.JPG" alt="image info"></p>
+
+</body>
+</html>

@@ -8,8 +8,7 @@ let messageController = require('../controllers/message.controller')();
  * @api {get} list all messages 
  * @apiName getAll
  * @apiParam {Number} page     the current page, starting from 1 (optional).
- * @apiParam {String} size     the size of page items, default is 10
- 
+ * @apiParam {Number} size     the size of page items, default is 10
  * @apiSuccessExample Success-true:
  *     HTTP/1.1 200 OK
  *     {

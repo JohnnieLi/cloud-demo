@@ -33,6 +33,7 @@ const api = require('./api.v1/index');
 // only apply to requests that begin with /api.v1/
 app.use('/v1', apiLimiter, api);
 
+app.use(express.static(path.join(__dirname, '../public')));
 
 //set swagger path
 const swaggerUi = require('swagger-ui-express');
