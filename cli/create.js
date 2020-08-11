@@ -11,7 +11,7 @@ export async function create(args){
        return;
     }
 
-    let baseUri = `http://18.234.123.12:30629/v1/messages`;
+    let baseUri = `https://api.johnnieli.com/v1/messages`;
     
     const table = new Table({
         head: ['Id', 'Body', 'IsPalindrome', 'Status', 'CreatedAt'],

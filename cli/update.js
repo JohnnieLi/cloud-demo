@@ -18,7 +18,7 @@ export async function update(args){
        return;
     }
 
-    let baseUri = `http://18.234.123.12:30629/v1/messages/${id}`;
+    let baseUri = `https://api.johnnieli.com/v1/messages/${id}`;
     
     try {
         let {data} =  await axios({

@@ -6,7 +6,7 @@ import Table from 'cli-table3';
 export async function list(args){
     let page = args.page || args.p || null;
     let size = args.size || args.s ||10;
-    let baseUri = 'http://18.234.123.12:30629/v1/messages';
+    let baseUri = 'https://api.johnnieli.com/v1/messages';
     if(page){
         baseUri += `?page=${page}&size=${size}`
     }
