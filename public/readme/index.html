@@ -490,7 +490,7 @@ Go to your server and follow the above steps, then run in production mode</li>
 <li>Create a S3 for <code>kops</code></li>
 <li>Build a docker image and push it to docker hub as public image: <code>jiangqi319/cloud-demo</code></li>
 <li>Using kops to create a kubenetes cluster in aws (set dns-zone as registered one)</li>
-<li>Using kubectl to create a pod and service based on the yml file (using docker image <code>jiangqi319/cloud-demo</code> and service kind is: loadbalancer)</li>
+<li>Using kubectl to create a deployment and service based on the yml file (using docker image <code>jiangqi319/cloud-demo</code> and service kind is: loadbalance)</li>
 <li>Create a public certificate for <code>api.johnnieli.com</code> using AWS Certificate Manager</li>
 <li>Create a CloudFront Distribution with loadbalancer and apply the domain <code>api.johnnieli.com</code> in with AWS Certificate, disabled the http cache on purpose.</li>
 <li><a href="https://api.johnnieli.com/v1/messages" target="_new">https://api.johnnieli.com/v1/messages</a> are available now.</li>

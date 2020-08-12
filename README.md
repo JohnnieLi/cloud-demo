@@ -131,7 +131,7 @@ curl -X DELETE https://api.johnnieli.com/v1/messages/5f32c4e0e4e2c7487add7b77
 4. Create a S3 for `kops`
 5. Build a docker image and push it to docker hub as public image: `jiangqi319/cloud-demo`
 6. Using kops to create a kubenetes cluster in aws (set dns-zone as registered one)
-7. Using kubectl to create a pod and service based on the yml file (using docker image `jiangqi319/cloud-demo` and service kind is: loadbalancer)
+7. Using kubectl to create a deployment and expose it as the service based on the yml file (using docker image `jiangqi319/cloud-demo` and service kind is: loadbalance)
 8. Create a public certificate for `api.johnnieli.com` using AWS Certificate Manager
 9. Create a CloudFront Distribution with loadbalancer and apply the domain `api.johnnieli.com` in with AWS Certificate, disabled the http cache on purpose.
 10. https://api.johnnieli.com are available now.
