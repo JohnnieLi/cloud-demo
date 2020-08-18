@@ -1,12 +1,10 @@
 import minimist from 'minimist';
-import arg from 'arg';
 import { list } from './list';
 import { retrieve } from './retrieve';
 import {deleteItem} from './rm'
 import { create } from './create';
 import { help } from './help';
 import { update } from './update';
-// import { version } from './version';
 
 
 export async function cli(argsArray) {
