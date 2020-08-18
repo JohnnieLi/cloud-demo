@@ -1,5 +1,6 @@
 let Message = require('../models/Message.model');// get our mongoose model
 let {isPalindrome} = require('../@core/utils/stringHelper');
+const stringHelper = require('../@core/utils/stringHelper');
 
 
 module.exports = function () {
@@ -55,6 +56,9 @@ module.exports = function () {
         if(!messageBody.body){
             return res.status(400).json({error: 400, message: 'missing body params'});
         }
+        if(typeof  messageBody.body != 'string'){
+            return res.status(400).json({error: 400, message: 'body need to be string'});
+        }
         let message = new Message();
         message.body = messageBody.body;
         message.isPalindrome = isPalindrome(message.body);
@@ -76,6 +80,13 @@ module.exports = function () {
         }
         if(!messageItem.body){
             return res.status(400).json({error: 400, message: 'missing body params'});
+        }
+        if(typeof  messageItem.body != 'string'){
+            return res.status(400).json({error: 400, message: 'body need to be string'});
+        }
+
+        if(messageItem.status && (typeof  messageItem.status != 'string')){
+            return res.status(400).json({error: 400, message: 'status need to be string'});
         }
         let isPali = isPalindrome(messageItem.body);
         Message.updateOne({'_id': _id}, {
